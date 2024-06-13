@@ -33,3 +33,19 @@ GROUP BY user_id
 HAVING COUNT(post_date) > 2;
 
 -- ex7
+SELECT card_name,
+MAX(issued_amount) - MIN(issued_amount) AS difference
+FROM monthly_cards_issued
+GROUP BY card_name
+ORDER BY difference DESC;
+
+-- ex8
+SELECT manufacturer,
+COUNT(drug),
+SUM(ABS(total_sales - cogs)) AS total_loss
+FROM pharmacy_sales
+WHERE total_sales - cogs < 0
+GROUP BY manufacturer
+ORDER BY total_loss DESC;
+
+
