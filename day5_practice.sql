@@ -48,4 +48,28 @@ WHERE total_sales - cogs < 0
 GROUP BY manufacturer
 ORDER BY total_loss DESC;
 
+-- ex9
+SELECT *
+FROM Cinema
+WHERE id%2=1
+AND NOT description LIKE '%boring%'
+ORDER BY rating DESC;
 
+-- ex10
+SELECT teacher_id,
+COUNT(DISTINCT subject_id) AS cnt
+FROM Teacher
+GROUP BY teacher_id;
+
+-- ex11
+SELECT DISTINCT user_id,
+COUNT(DISTINCT follower_id) AS followers_count
+FROM Followers
+GROUP BY user_id
+ORDER BY user_id;
+
+-- ex12
+SELECT class
+FROM Courses
+GROUP BY class
+HAVING COUNT(student) >= 5;
