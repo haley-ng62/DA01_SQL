@@ -45,14 +45,15 @@ SELECT activity_date AS day,
   COUNT(DISTINCT user_id) AS active_users
   FROM Activity
   WHERE activity_type != 'end-session'
-  AND '2019-07-27'-activity_date <= 30
+  AND DATEDIFF('2019-07-27', activity_date) < 30
+  AND activity_date <= '2019-07-27'
   GROUP BY activity_date;
 
 -- ex8
 SELECT count(DISTINCT id)
   FROM employees
   WHERE EXTRACT(month FROM joining_date) BETWEEN 1 AND 7
-  AND EXTRACT(year FROM joining_date) = 2022
+  AND EXTRACT(year FROM joining_date) = 2022;
 
 -- ex9
 SELECT POSITION('a' IN first_name)
