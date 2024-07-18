@@ -45,3 +45,39 @@ FROM customer_contracts AS a
         ON a.product_id = b.product_id
 GROUP BY a.customer_id
 HAVING COUNT(DISTINCT b.product_category) = 3;
+
+-- ex5
+SELECT 
+        Managers.employee_id,
+        Managers.name,
+        COUNT(Employees.employee_id) AS reports_count,
+        ROUND(AVG(Employees.age)) AS average_age
+FROM Employees AS Managers
+        LEFT JOIN Employees
+        ON Managers.employee_id = Employees.reports_to
+GROUP BY Managers.employee_id, Managers.name
+HAVING reports_count != 0
+ORDER BY Managers.employee_id
+
+-- ex6
+SELECT 
+        b.product_name,
+        SUM(a.unit) AS unit
+FROM Orders AS a
+        LEFT JOIN Products AS b
+        ON a.product_id = b.product_id
+WHERE
+        EXTRACT(year FROM a.order_date) = 2020
+        AND EXTRACT(month FROM a.order_date) = 2
+GROUP BY b.product_name
+HAVING SUM(a.unit) >= 100;
+
+-- ex7
+SELECT
+        a.page_id
+FROM pages AS a
+        FULL JOIN page_likes AS b
+        ON a.page_id = b.page_id
+GROUP BY a.page_id
+HAVING COUNT(b.user_id) = 0
+ORDER BY a.page_id;
