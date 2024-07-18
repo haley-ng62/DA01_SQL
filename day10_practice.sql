@@ -36,3 +36,12 @@ FROM activities AS a
         ON a.user_id = b.user_id
           AND a.activity_type IN ('send', 'open')
 GROUP BY b.age_bucket;
+
+-- ex4
+SELECT 
+        a.customer_id
+FROM customer_contracts AS a
+        INNER JOIN products AS b
+        ON a.product_id = b.product_id
+GROUP BY a.customer_id
+HAVING COUNT(DISTINCT b.product_category) = 3;
